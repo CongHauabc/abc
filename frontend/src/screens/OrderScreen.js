@@ -9,6 +9,7 @@ import Message from "./../components/LoadingError/Error";
 import moment from "moment";
 import axios from "axios";
 import { ORDER_PAY_RESET } from "../Redux/Constants/orderContant";
+import { URL } from './../Redux/Url';
 
 const OrderScreen = ({ match }) => {
   window.scrollTo(0, 0);
@@ -27,10 +28,10 @@ const OrderScreen = ({ match }) => {
     }
     order.itemsPrice = addDecimals(order.orderItem.reduce((acc,item)=> acc + item.price * item.qty,0))
   }
-
+  
   useEffect(() => {
     const addPayPalScript = async () => {
-      const { data: clientId } = await axios.get("/api/config/paypal");
+      const { data: clientId } = await axios.get(`${URL}/api/config/paypal`);
       const script = document.createElement("script");
       script.type = "text/javascript";
       script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;

@@ -1,121 +1,69 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteCategory, listCategory } from "../../Redux/Actions/categoryAction";
+import Message from "../LoadingError/Error";
+import Loading from "../LoadingError/Loading";
 
 const CategoriesTable = () => {
+  const dispatch = useDispatch();
+  const categoryList = useSelector((state) => state.categoryList);
+  const { loading,errorDelete,category } = categoryList;
+  const deletehandler = (id)=>{
+    if(window.confirm("Are you sure ??")){
+      dispatch(deleteCategory(id))
+    }
+  }
+  useEffect((e) => {
+    dispatch(listCategory());
+  }, []);
   return (
     <div className="col-md-12 col-lg-8">
       <table className="table">
         <thead>
           <tr>
-            <th>
-              <div className="form-check">
-                <input className="form-check-input" type="checkbox" value="" />
-              </div>
-            </th>
             <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
+            <th>Name Category</th>
             <th className="text-end">Action</th>
           </tr>
         </thead>
         {/* Table Data */}
-        <tbody>
-          <tr>
-            <td>
-              <div className="form-check">
-                <input className="form-check-input" type="checkbox" value="" />
-              </div>
-            </td>
-            <td>1</td>
-            <td>
-              <b>Men clothes</b>
-            </td>
-            <td>Men clothes</td>
-            <td className="text-end">
-              <div className="dropdown">
-                <Link
-                  to="#"
-                  data-bs-toggle="dropdown"
-                  className="btn btn-light"
-                >
-                  <i className="fas fa-ellipsis-h"></i>
-                </Link>
-                <div className="dropdown-menu">
-                  <Link className="dropdown-item" to="#">
-                    Edit info
-                  </Link>
-                  <Link className="dropdown-item text-danger" to="#">
-                    Delete
-                  </Link>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div className="form-check">
-                <input className="form-check-input" type="checkbox" value="" />
-              </div>
-            </td>
-            <td>2</td>
-            <td>
-              <b>Women fashion</b>
-            </td>
-            <td>Fashions for Women</td>
+        {errorDelete && (<Message variant="alert-danger" >{errorDelete}</Message>) }
+      {
+        loading ? (<Loading/>) : errorDelete ? (<Message variant="alert-danger" >{errorDelete}</Message>):
+        (
+          <tbody>
+          {category.map((data) => (
+            <tr>
+              <td>{data._id}</td>
+              <td>
+                <b>{data.name}</b>
+              </td>
 
-            <td className="text-end">
-              <div className="dropdown">
-                <Link
-                  to="#"
-                  data-bs-toggle="dropdown"
-                  className="btn btn-light"
-                >
-                  <i className="fas fa-ellipsis-h"></i>
-                </Link>
-                <div className="dropdown-menu">
-                  <Link className="dropdown-item" to="#">
-                    Edit info
+              <td className="text-end">
+                <div className="dropdown">
+                  <Link
+                    to="#"
+                    data-bs-toggle="dropdown"
+                    className="btn btn-light"
+                  >
+                    <i className="fas fa-ellipsis-h"></i>
                   </Link>
-                  <Link className="dropdown-item text-danger" to="#">
-                    Delete
-                  </Link>
+                  <div className="dropdown-menu">
+                      <Link className="dropdown-item" to='#'>
+                      Edit info
+                    </Link>
+                    <Link onClick={()=>deletehandler(data._id)} className="dropdown-item text-danger" to="#">
+                      Delete
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div className="form-check">
-                <input className="form-check-input" type="checkbox" value="" />
-              </div>
-            </td>
-            <td>3</td>
-            <td>
-              <b>Kids clothes</b>
-            </td>
-            <td>Clothes for kids</td>
-
-            <td className="text-end">
-              <div className="dropdown">
-                <Link
-                  to="#"
-                  data-bs-toggle="dropdown"
-                  className="btn btn-light"
-                >
-                  <i className="fas fa-ellipsis-h"></i>
-                </Link>
-                <div className="dropdown-menu">
-                  <Link className="dropdown-item" to="#">
-                    Edit info
-                  </Link>
-                  <Link className="dropdown-item text-danger" to="#">
-                    Delete
-                  </Link>
-                </div>
-              </div>
-            </td>
-          </tr>
+              </td>
+            </tr>
+          ))}
         </tbody>
+        )}
+        
       </table>
     </div>
   );

@@ -27,7 +27,7 @@ const Contact = () => {
       }
 
     return (
-    <div>
+    <div style={{position:"relative",zIndex:1000}}>
       <div id="form">
               <div class="fish" id="fish"></div>
               <div class="fish" id="fish2"></div>

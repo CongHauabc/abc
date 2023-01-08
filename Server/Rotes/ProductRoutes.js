@@ -10,7 +10,7 @@ productRoute.get(
   asyncHandler(async (req, res) => {
     const pageSize = 3;
     const page = Number(req.query.pageNumber) || 1;
-    const keyword = req.query.keyword
+    const keyword = req.query.keyword 
       ? {
           name: {
             $regex: req.query.keyword,
@@ -26,6 +26,10 @@ productRoute.get(
     res.json({ products, page, pages: Math.ceil(count / pageSize) });
   })
 );
+
+
+
+
 
 // ADMIN GET ALL PRODUCT WITHOUT SEARCH AND PEGINATION
 productRoute.get(
@@ -139,7 +143,7 @@ productRoute.post(
   })
 );
 
-// UPDATE PRODUCT
+// UPDATE PRODUCT 
 productRoute.put(
   "/:id",
   protect,

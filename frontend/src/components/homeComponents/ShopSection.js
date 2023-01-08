@@ -6,126 +6,125 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Loading from "../LoadingError/Loading";
 import Message from "../LoadingError/Error";
-import { listProduct } from './../../Redux/Actions/ProductAction';
-import img1 from '../../img/carosel1.jpg'
-import img2 from '../../img/carosel2.jpg'
-import img3 from '../../img/carosel3.jpg'
-import img4 from '../../img/carosel4.jpg'
-import img5 from '../../img/carosel5.jpg'
-import img6 from '../../img/carosel6.jpg'
+import { listProduct } from "./../../Redux/Actions/ProductAction";
 
-import img7 from '../../img/sale1.png'
-import img8 from '../../img/sale2.png'
-import img9 from '../../img/sale3.png'
-import img10 from '../../img/sale4.png'
-import img11 from '../../img/sale5.png'
+import img4 from "../../img/carosel4.jpg";
+import img5 from "../../img/carosel5.jpg";
+import img6 from "../../img/carosel6.jpg";
+
+
+import { bannerLogo } from "../../Redux/Actions/bannerAction";
 
 const ShopSection = (props) => {
-  const { keyword,pagenumber } = props;
+  const { keyword, pagenumber } = props;
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList;
 
+  const bannerShow = useSelector((state) => state.bannerShow);
+  const { loading: loadingbanner, error: errorbanner, banner } = bannerShow;
+
   useEffect(() => {
-    dispatch(listProduct(keyword,pagenumber));
-  }, [dispatch, keyword,pagenumber]);
-  console.log({productList})
+    dispatch(listProduct(keyword, pagenumber));
+  }, [dispatch, keyword, pagenumber]);
+  useEffect(() => {
+    dispatch(bannerLogo());
+  }, []);
+  console.log(banner);
   return (
     <>
-    <div style={{width:"100%"}}>
-    <div style={{ display: "flex", padding: "0 14% 1% 14%", gap: "2%" }}>
-  <div
-    id="carouselExampleControls"
-    className="carousel slide"
-    style={{ width: "66%" }}
-    data-bs-ride="carousel"
-  >
-    <div className="carousel-inner">  
-      <div className="carousel-item active">
-        <img
-          style={{ borderRadius: 12 }}
-          src={img1}
-          className="d-block w-100"
-          alt="..."
-        />
+      <div style={{ width: "100%" }}>
+        <div style={{ display: "flex", padding: "0 14% 1% 14%", gap: "2%" }}>
+          <div
+            id="carouselExampleControls"
+            className="carousel slide"
+            style={{ width: "66%" }}
+            data-bs-ride="carousel"
+          >
+            <div className="carousel-inner">
+              {loadingbanner ? (
+                <Loading />
+              ) : errorbanner ? (
+                <Message variant="alert-danger">{error}</Message>
+              ) : (
+                <>
+                  {banner.map((b, i) => (
+                    <div
+                      className={
+                        i == 0 ? "carousel-item active" : "carousel-item"
+                      }
+                    >
+                      <img
+                        style={{ borderRadius: 12 }}
+                        src={b.image}
+                        className="d-block w-100"
+                        alt="..."
+                      />
+                    </div>
+                  ))}
+                </>
+              )}
+            </div>
+            <button
+              className="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExampleControls"
+              style={{ padding: "0 20%" }}
+              data-bs-slide="prev"
+            >
+              <span className="carousel-control-prev-icon" aria-hidden="true" />
+              <span className="visually-hidden">Previous</span>
+            </button>
+            <button
+              className="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExampleControls"
+              style={{ padding: "0 20%" }}
+              data-bs-slide="next"
+            >
+              <span className="carousel-control-next-icon" aria-hidden="true" />
+              <span className="visually-hidden">Next</span>
+            </button>
+          </div>
+          <div
+            style={{
+              width: "35%",
+              display: "flex",
+              flexDirection: "column",
+              gap: 14,
+            }}
+          >
+            <div>
+              <img
+                style={{ borderRadius: 12, maxWidth: "100%" }}
+                src={img4}
+                alt="..."
+              />
+            </div>
+            <div>
+              <img
+                style={{ borderRadius: 12, maxWidth: "100%" }}
+                src={img5}
+                alt="..."
+              />
+            </div>
+            <div>
+              <img
+                style={{ borderRadius: 12, maxWidth: "100%" }}
+                src={img6}
+                alt="..."
+              />
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="carousel-item">
-        <img
-          style={{ borderRadius: 12 }}
-          src={img2}
-          className="d-block w-100"
-          alt="..."
-        />
-      </div>
-      <div className="carousel-item">
-        <img
-          style={{ borderRadius: 12 }}
-          src={img3}
-          className="d-block w-100"
-          alt="..."
-        />
-      </div>
-    </div>
-    <button
-      className="carousel-control-prev"
-      type="button"
-      data-bs-target="#carouselExampleControls"
-      style={{ padding: "0 20%" }}
-      data-bs-slide="prev"
-    >
-      <span className="carousel-control-prev-icon" aria-hidden="true" />
-      <span className="visually-hidden">Previous</span>
-    </button>
-    <button
-      className="carousel-control-next"
-      type="button"
-      data-bs-target="#carouselExampleControls"
-      style={{ padding: "0 20%" }}
-      data-bs-slide="next"
-    >
-      <span className="carousel-control-next-icon" aria-hidden="true" />
-      <span className="visually-hidden">Next</span>
-    </button>
-  </div>
-  <div
-    style={{ width: "35%", display: "flex", flexDirection: "column", gap: 14 }}
-  >
-    <div>
-      <img
-        style={{ borderRadius: 12,maxWidth:"100%" }}
-        src={img4}
-        alt="..."
-      />
-    </div>
-    <div>
-      <img
-        style={{ borderRadius: 12,maxWidth:"100%" }}
-        src={img5}
-        alt="..."
-      />
-    </div>
-    <div>
-      <img
-        style={{ borderRadius: 12,maxWidth:"100%" }}
-        src={img6}
-        alt="..."
-      />
-    </div>
-  </div>
-
-
-
-
-</div>
- 
-    </div>
       <div className="container">
         <div className="section">
           <div className="row">
             <div className="col-lg-12 col-md-12 article">
               <div className="shopcontainer row">
-              <h1 style={{textAlign:"center"}}>Product</h1>
+                <h1 style={{ textAlign: "center" }}>Product</h1>
                 {loading ? (
                   <div className="mb-5">
                     <Loading />

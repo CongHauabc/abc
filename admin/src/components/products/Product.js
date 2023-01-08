@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { deleteProduct } from "../../Redux/Actions/ProductAction";
+import { CATEGORY_CREATE_RESET } from "../../Redux/Constants/categoryContant";
 
 const Product = (props) => {
   const { product } = props;
@@ -11,6 +12,7 @@ const Product = (props) => {
     if(window.confirm("Are you sure ??")){
       dispatch(deleteProduct(id))
     }
+    dispatch({type:CATEGORY_CREATE_RESET})
   }
 
   return (

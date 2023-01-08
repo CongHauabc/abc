@@ -18,7 +18,7 @@ const CalltoActionSection = () => {
     })
   }
   return (
-    <div className="subscribe-section bg-with-black">
+    <div className="subscribe-section bg-with-black" style={{position:"relative",zIndex:1000}}>
       <div className="container">
         <div className="row">
           <div className="col-xs-12">

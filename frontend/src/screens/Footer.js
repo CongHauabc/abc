@@ -12,7 +12,7 @@ function Footers() {
 //     Aos.init({duration:2000})
 //   },[])
   return (
-    <section className="s">
+    <section className="s" style={{position:"relative",zIndex:1000}}>
       <div className="videoDiv">
       <video src={videofooter} loop muted autoPlay typeof="video/mp4"></video>
       </div>

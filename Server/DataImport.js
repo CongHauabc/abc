@@ -7,6 +7,12 @@ import product from './data/Products.js';
 import Product from './Models/ProductModel.js'
 import Category from './Models/Category.js';
 import category from './data/category.js'
+import Logo from './Models/Logo.js';
+import logo from './data/logo.js';
+import Banner from './Models/Banner.js';
+import banner from './data/banner.js';
+import News from './Models/News.js';
+import news from './data/news.js';
 
 const ImportData = Express.Router()
 
@@ -35,6 +41,38 @@ ImportData.post("/category", asyncHandler(
     }
 )
 );
+ImportData.post("/logo", asyncHandler(
+    async(req,res)=>{
+        await Logo.remove({});
+        const importLogo = await Logo.insertMany(logo);
+        res.send({ importLogo });
+    }
 
+
+)
+);
+ImportData.post("/banner", asyncHandler(
+    async(req,res)=>{
+        await Banner.remove({});
+        const importBanner = await Banner.insertMany(banner);
+        res.send({ importBanner });
+    }
+
+
+
+)
+);
+
+ImportData.post("/news", asyncHandler(
+    async(req,res)=>{
+        await News.remove({});
+        const importNews = await News.insertMany(news);
+        res.send({ importNews });
+    }
+
+
+
+)
+);
 
 export default ImportData;

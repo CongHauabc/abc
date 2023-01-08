@@ -2,7 +2,7 @@ import React from "react";
 
 const ContactInfo = () => {
   return (
-    <div className="contactInfo container">
+    <div className="contactInfo container" style={{position:"relative",zIndex:1000}}>
       <div className="row">
         <div className="col-12 col-md-4 contact-Box">
         
@@ -17,7 +17,10 @@ const ContactInfo = () => {
         <div className="col-12 col-md-4 contact-Box">
           <div className="box-info">
             <div className="info-image">
+            <a href="https://goo.gl/maps/6mzXjDSAh53Gjq1v5" target="_blank">
+
               <i className="fas fa-map-marker-alt"></i>
+            </a>
             </div>
             <h5>Việt Nam</h5>
             <p>TP.Hồ Chí Minh</p>

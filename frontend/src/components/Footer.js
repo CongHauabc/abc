@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="footer">
+    <div className="footer" style={{position:"relative",zIndex:1000}}>
       <div className="justify-content-center d-flex">
         <div className="card-name">
           <img
@@ -19,7 +19,7 @@ const Footer = () => {
         <div className="card-name">
           <img
             alt="paypal"
-            src="https://pbs.twimg.com/media/EfTZlEnWAAMn1lX.png"
+            src="https://marcas-logos.net/wp-content/uploads/2019/12/PayPal-Logo.png"
           />
         </div>
         <div className="card-name">

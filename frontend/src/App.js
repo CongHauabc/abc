@@ -15,12 +15,16 @@ import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
 import NotFound from "./screens/NotFound";
 import PrivateRouter from "./PrivateRouter";
+import ProductCategory from "./screens/ProductCategory";
+import NewScreen from "./screens/NewScreen";
 
 const App = () => {
   return (
     <Router>
       <Switch>
         <Route path="/" component={HomeScreen} exact />
+        <Route path="/cate/:id" component={ProductCategory} exact />
+
         
         <Route path="/search/:keyword" component={HomeScreen} exact />
         <Route path="/page/:pagenumber" component={HomeScreen} exact />
@@ -30,6 +34,7 @@ const App = () => {
         <Route path="/register" component={Register} />
         <PrivateRouter path="/profile" component={ProfileScreen} />
         <Route path="/cart/:id?" component={CartScreen} />
+        <Route path="/new/:id" component={NewScreen} />
         <PrivateRouter path="/shipping" component={ShippingScreen} />
         <PrivateRouter path="/payment" component={PaymentScreen} />
         <PrivateRouter path="/placeorder" component={PlaceOrderScreen} />

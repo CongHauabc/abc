@@ -5,7 +5,10 @@ import { userListReducer, userLoginReducer } from './Reducers/userReducers';
 import { productCreateReducer, productDeleteReducer, productEditReducer, productListReducer, productUpdateReducer } from "./Reducers/ProductReducers";
 import { orderDeliveredReducer, orderDetailsReducer, orderListReducer } from "./Reducers/orderReduces";
 
-import { categoryListReducer } from './Reducers/categoryReduces';
+import { categoryCreateReducer, categoryDeleteReducer, categoryListReducer } from './Reducers/categoryReduces';
+import { logoEditReducer, logoShowReducer, logoUpdateReducer } from "./Reducers/logoReduces";
+import { bannerCreateReducer, bannerDeleteReducer, bannerEditReducer, bannerShowReducer, bannerUpdateReducer } from "./Reducers/bannerReduces";
+import { newsCreateReducer, newsDeleteReducer, newsDetailsReducer, newsShowReducer, newsUpdateReducer } from "./Reducers/newsReduces";
 
 
 
@@ -21,7 +24,22 @@ const reducer = combineReducers({
     orderList:orderListReducer,
     orderDetails: orderDetailsReducer,
     orderDeliver:orderDeliveredReducer,
-    categoryList:categoryListReducer
+    categoryList:categoryListReducer,
+    categoryCreate:categoryCreateReducer,
+    categoryDelete:categoryDeleteReducer,
+    logoShow:logoShowReducer,
+    logoEdit:logoEditReducer,
+    logoUpdate:logoUpdateReducer,
+    bannerShow:bannerShowReducer,
+    bannerEdit:bannerEditReducer,
+    bannerUpdate:bannerUpdateReducer,
+    bannerDelete:bannerDeleteReducer,
+    bannerCreate:bannerCreateReducer,
+    newShow:newsShowReducer,
+    newDetail:newsDetailsReducer,
+    newUpdate:newsUpdateReducer,
+    newDelete:newsDeleteReducer,
+    newCreate:newsCreateReducer
 })
 
 

@@ -17,12 +17,20 @@ const ToastObjects = {
   autoClose: 2000,
 };
 const AddProductMain = () => {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
-  const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
-  const [countInStock, setCountInStock] = useState("");
-  const [categorys, setCategorys] = useState("");
+  const [val, setVal] = useState({
+    name: ' ',
+    price: ' ',
+    description: ' ',
+    image: ' ',
+    countInStock: ' ',
+    category:' ',
+    })
+  // const [name, setName] = useState("");
+  // const [price, setPrice] = useState(0);
+  // const [description, setDescription] = useState("");
+  // const [image, setImage] = useState("");
+  // const [countInStock, setCountInStock] = useState("");
+  // const [categorys, setCategorys] = useState("");
 
 
   const dispatch = useDispatch();
@@ -42,33 +50,39 @@ const AddProductMain = () => {
     if (product) {
       toast.success("Product added", ToastObjects);
       dispatch({ type: PRODUCT_CREATE_RESET });
-      setName("");
-      setImage("");
-      setDescription("");
-      setCountInStock("");
-      setCategorys("")
-      setPrice(0);
+      setVal({
+        name: ' ',
+        price: ' ',
+        description: ' ',
+        image: ' ',
+        countInStock: ' ',
+        category:' '
+      })
     }
   }, [dispatch, product]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const myForm = new FormData();
-    dispatch(createProduct(name, price, description, image, countInStock,category));
+    
+    dispatch(createProduct(JSON.stringify(val)));
   };
-  console.log(category);
-  console.log(name);
-  console.log(price);
-  console.log(description);
 
-
+  const handleChange = (e) => {
+    setVal({...val, [e.target.name]: e.target.value})
+    console.log(val)
+    }
+    const onSubmit = (e) => {
+      e.preventDefault()
+      console.log(val)
+      dispatch(createProduct(val));
+      }
 const cate =()=>{
 }
   return (
     <>
       <Toast />
       <section className="content-main" style={{ maxWidth: "1200px" }}>
-        <form onSubmit={submitHandler}>
+        <form onSubmit={onSubmit}>
           <div className="content-header">
             <Link to="/products" className="btn btn-danger text-white">
               Go to products
@@ -97,15 +111,14 @@ const cate =()=>{
                       className="form-control"
                       id="product_title"
                       required
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      name='name' onChange={handleChange} 
                     />
                   </div>
                   <div className="mb-4">
-                    <select onChange={categoryhandle}>
+                    <select onChange={handleChange} name='category'>
                       <option value="">Choose Category</option>
                       {category.map((cate) => (
-                        <option key={cate._id} value={cate.name} >
+                        <option key={cate._id} value={cate.name}  onChange={handleChange} >
                           {cate.name}
                         </option>
                       ))}
@@ -121,8 +134,7 @@ const cate =()=>{
                       className="form-control"
                       id="product_price"
                       required
-                      value={price}
-                      onChange={(e) => setPrice(e.target.value)}
+                      name='price' onChange={handleChange} 
                     />
                   </div>
                   <div className="mb-4">
@@ -135,8 +147,8 @@ const cate =()=>{
                       className="form-control"
                       id="product_price"
                       required
-                      value={countInStock}
-                      onChange={(e) => setCountInStock(e.target.value)}
+                     
+                      name='countInStock' onChange={handleChange} 
                     />
                   </div>
                   <div className="mb-4">
@@ -146,8 +158,8 @@ const cate =()=>{
                       className="form-control"
                       rows="7"
                       required
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
+                     
+                      name='description' onChange={handleChange} 
                     ></textarea>
                   </div>
                   <div className="mb-4">
@@ -156,8 +168,9 @@ const cate =()=>{
                       className="form-control"
                       type="text"
                       placeholder="Inter Image URL"
-                      value={image}
-                      onChange={(e) => setImage(e.target.value)}
+                      
+                      name='image' onChange={handleChange} 
+
                     />
                     <input className="form-control mt-3" type="file" />
                   </div>
@@ -167,6 +180,7 @@ const cate =()=>{
             </div>
           </div>
         </form>
+        
       </section>
     </>
   );

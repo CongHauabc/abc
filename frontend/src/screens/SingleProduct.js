@@ -9,7 +9,7 @@ import Loading from "./../components/LoadingError/Loading";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../Redux/Constants/ProductConstant";
 import { moment } from 'moment';
 import { createProductReview } from './../Redux/Actions/ProductAction';
-
+import ReactImageMagnify from 'react-image-magnify';
 const SingleProduct = ({ history,match }) => {
   const [qty,setQty] = useState(1)
   const [rating,setRating] = useState(0)
@@ -60,7 +60,25 @@ const SingleProduct = ({ history,match }) => {
             <div className="row">
               <div className="col-md-6">
                 <div className="single-image">
-                  <img src={product.image} alt={product.name} />
+                  {/* <img src={product.image} alt={product.name} /> */}
+                  <ReactImageMagnify
+                        {...{
+                            smallImage: {
+                                alt: 'Wristwatch by Ted Baker London',
+                                isFluidWidth: true,
+                                src: `${product.image}`,
+                            },
+                            largeImage: {
+                                src: `${product.image}`,
+                                width: 1200,
+                                height: 1800,
+                            },
+                            enlargedImageContainerDimensions: {
+                                width: '60%',
+                                height: '60%',
+                            },
+                        }}
+                    />
                 </div>
               </div>
               <div className="col-md-6">

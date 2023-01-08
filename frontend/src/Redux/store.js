@@ -4,7 +4,11 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { productCreateReviewReducer, productDetailsReducer, productListallReducer, productListReducer } from "./Reducers/ProductReducers";
 import { cartReducer } from "./Reducers/CartReducers";
 import { userDetailsReducer, userLoginReducer, userRegisterReducer, userUpdateProfileReducer } from './Reducers/userReducers';
-import { orderCreateReducer, orderDetailsReducer, orderListMyReducer, orderPayReducer } from "./Reducers/orderReduces";
+import { orderCreateReducer, orderDeleteReducer, orderDetailsReducer, orderListMyReducer, orderPayReducer } from "./Reducers/orderReduces";
+import { categoryListReducer } from "./Reducers/categoryReduces";
+import { logoShowReducer } from "./Reducers/logoReduces";
+import { bannerShowReducer } from "./Reducers/bannerReduces";
+import { newsDetailsReducer, newsShowReducer } from "./Reducers/newsReduces";
 
 
 const reducer = combineReducers({
@@ -22,7 +26,12 @@ const reducer = combineReducers({
     orderDetails:orderDetailsReducer,
     orderPay:orderPayReducer,
     orderListMy:orderListMyReducer,
-
+    orderDelete:orderDeleteReducer,
+    categoryList:categoryListReducer,
+    logoShow:logoShowReducer,
+    bannerShow:bannerShowReducer,
+    newShow:newsShowReducer,
+    newDetail:newsDetailsReducer
     
 
 

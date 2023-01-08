@@ -6,6 +6,7 @@ import CalltoActionSection from "./../components/homeComponents/CalltoActionSect
 import Footer from "./../components/Footer";
 import Footers from "./Footer";
 import Contact from "./Contact";
+import Blog from './Blog';
 const HomeScreen = ({match}) => {
   window.scrollTo(0, 0);
   const keyword = match.params.keyword
@@ -13,13 +14,18 @@ const HomeScreen = ({match}) => {
 
   return (
     <div>
+    <div class="pyro"><div class="before"></div><div class="after"></div></div>
       <Header />
       <ShopSection keyword={keyword} pagenumber={pagenumber} />
       <CalltoActionSection />
       <ContactInfo />
       <Contact/>
-      <Footer />
+      <Blog/>
       <Footers/>
+      {/* <Footer /> */}
+      <img src="https://res.cloudinary.com/dfwzqp6wt/image/upload/v1672512676/NCHShop/Logo/mua-lan_yxbmrc.png" style={{position:"fixed",zIndex:"10",width:"11%",top:"25%"}} />
+      <img src="https://res.cloudinary.com/dfwzqp6wt/image/upload/v1672514488/NCHShop/Logo/bg-banh-chung_oqpnfn.png" style={{position:"fixed",zIndex:"10",width:"11%",top:"27%",right:"0"}} />
+
     </div>
   );
 };

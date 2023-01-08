@@ -50,7 +50,6 @@ export const productCreateReducer = (state = {}, action) => {
 
 
     // EDIT PRODUCT
-// SINGLE PRODUCT
 export const productEditReducer = (
   state = { product: { reviews: [] } },
   action

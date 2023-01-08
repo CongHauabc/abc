@@ -1,11 +1,21 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import $ from "jquery";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from "../Redux/Actions/userAction";
-
+import moment  from "moment";
+import { listOrders } from "../Redux/Actions/OrderAction";
+import Loading from "./LoadingError/Loading";
+import Message from "./LoadingError/Error";
 const Header = () => {
   const dispatch = useDispatch()
+
+  const orderList = useSelector((state) => state.orderList);
+  const { loading, error, orders } = orderList;
+  useEffect(()=>{
+    dispatch(listOrders())
+  },[])
+  console.log(orders)
   useEffect(() => {
     $("[data-trigger]").on("click", function (e) {
       e.preventDefault();
@@ -66,13 +76,36 @@ const Header = () => {
               <i className="fas fa-moon"></i>
             </Link>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link btn-icon" to="#">
+          <li className="dropdown nav-item">
+            <Link className="dropdown-toggle" data-bs-toggle="dropdown" to="#">
+            <i className="fas fa-bell"></i>
+            </Link>
+            <div className="dropdown-menu dropdown-menu-end" style={{padding:"10px",minWidth:"300px"}}>
+            {loading ? (
+        <Loading />
+      ) : error ? (
+        <Message variant="alert-danger">{error}</Message>
+      ) : (
+        <>
+          {
+            orders.slice(0, 5).map((order)  => (
+              <Link to={`/order/${order._id}`} style={{textDecoration:"none",color:"black"}}>
+
+              <p style={{borderBottom:"1px solid"}}><b>{order.user.name}</b> buy at {moment(order.createdAt).calendar()}</p>
+              </Link>
+            ))
+          }
+        </>
+      )}
+            </div>
+          </li>
+          {/* <li className="nav-item">
+            <Link className="nav-link btn-icon" to="">
               <i className="fas fa-bell"></i>
             </Link>
-          </li>
+          </li> */}
           <li className="nav-item">
-            <Link className="nav-link" to="#">
+            <Link className="nav-link" to="">
               English
             </Link>
           </li>
@@ -80,7 +113,7 @@ const Header = () => {
             <Link className="dropdown-toggle" data-bs-toggle="dropdown" to="#">
               <img
                 className="img-xs rounded-circle"
-                src="/images/favicon.png"
+                src="/images/logo2.png"
                 alt="User"
               />
             </Link>

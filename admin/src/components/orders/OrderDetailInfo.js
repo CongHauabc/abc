@@ -1,5 +1,4 @@
 import React from "react";
-
 const OrderDetailInfo = (props) => {
   const {order} = props
   return (

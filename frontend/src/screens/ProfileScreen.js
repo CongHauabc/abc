@@ -5,23 +5,37 @@ import ProfileTabs from "../components/profileComponents/ProfileTabs";
 import Orders from "./../components/profileComponents/Orders";
 import { getUserDetails } from "../Redux/Actions/userAction";
 import moment from "moment"
-import { listMyOrder } from "../Redux/Actions/OrderAction";
+import { deleteorder, listMyOrder } from "../Redux/Actions/OrderAction";
 import Loading from "../components/LoadingError/Loading";
 import Message from "../components/LoadingError/Error";
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { ORDER_LIST_MY_REQUEST, ORDER_LIST_MY_RESET, ORDER_LIST_MY_SUCCESS } from "../Redux/Constants/orderContant";
 const ProfileScreen = () => {
   window.scrollTo(0, 0);
   const dispatch = useDispatch()
   const userLogin = useSelector((state)=>state.userLogin)
   const {userInfo} = userLogin
-
+  const history = useHistory()
   const orderListMy = useSelector((state)=>state.orderListMy)
   const {loading,error,orders} = orderListMy
+  const orderDelete = useSelector((state)=>state.orderDelete)
+  const {error:errorDelete,success:successDelete} = orderDelete
+  const deletehandler = (id)=>{
+    if(window.confirm("Are you sure ??")){
+      dispatch(deleteorder(id))
+      dispatch({type:ORDER_LIST_MY_RESET})
+      dispatch({type:ORDER_LIST_MY_REQUEST})
+      dispatch({type:ORDER_LIST_MY_SUCCESS})
+    }
+   
+  }
   useEffect(()=>{
     dispatch(listMyOrder())
     dispatch(getUserDetails("profile"))
 
-  },[dispatch])
+  },[dispatch,successDelete])
+  
   return (
     <>
       <Header />
@@ -109,6 +123,7 @@ const ProfileScreen = () => {
       ) : error ? (
         <Message variant="alert-danger">{error}</Message>
       ) : (
+        
         <>
           {orders.length === 0 ? (
             <div className="col-12 alert alert-info text-center mt-3">
@@ -132,9 +147,13 @@ const ProfileScreen = () => {
                     <th>STATUS</th>
                     <th>DATE</th>
                     <th>TOTAL</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
+                {errorDelete && (
+            <Message variant="alert-danger">{errorDelete}</Message>
+          )}
                   {orders.map((order,index) => (
                     <tr
                       className={`${
@@ -154,10 +173,15 @@ const ProfileScreen = () => {
                           : moment(order.createdAt).calendar()}
                       </td>
                       <td>${order.totalPrice}</td>
+                      <td>
+                     <button><Link onClick={()=>deletehandler(order._id)}>cancel</Link></button>
+                      </td>
                     </tr>
+                    
                   ))}
                 </tbody>
               </table>
+              
             </div>
           )}
         </>

@@ -188,4 +188,21 @@ orderRouter.put(
 
 );
 
+  // DELETE banner
+  orderRouter.delete(
+    "/:id",
+    protect,
+    asyncHandler(async (req, res) => {
+      const order = await Order.findById(req.params.id);
+      if (order) {
+        await order.remove();
+        res.json({ message: "Order deleted" });
+      } else {
+        res.status(404);
+        throw new Error("Order not Found");
+      }
+    })
+  );
+
+
 export default orderRouter
